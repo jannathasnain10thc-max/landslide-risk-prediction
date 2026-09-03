@@ -61,3 +61,9 @@ This project is a prototype developed using a synthetically generated dataset fo
 - Add GIS-based visualization
 - Use real-time rainfall data
 - Deploy as a web application
+- ## 🖥️ User Interface
+
+A Gradio interface was developed where users can enter environmental conditions and receive a predicted landslide risk.
+### Application Demo
+
+![Landslide Risk Prediction Interface](gradio_interface.png)
