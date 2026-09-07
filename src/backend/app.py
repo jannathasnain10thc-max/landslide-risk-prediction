@@ -76,11 +76,45 @@ def predict():
     probability = max(probabilities) * 100
 
     # Save prediction to PostgreSQL
-    conn = get_db_connection()
-    cur = conn.cursor()
+   
+conn = get_db_connection()
+cur = conn.cursor()
+# Create table if it does not exist
+cur.execute("""
+    CREATE TABLE IF NOT EXISTS predictions (
+        id SERIAL PRIMARY KEY,
+        rainfall FLOAT,
+        soil_moisture FLOAT,
+        slope FLOAT,
+        elevation FLOAT,
+        temperature FLOAT,
+        distance_river FLOAT,
+        vegetation FLOAT,
+        risk VARCHAR(20),
+        probability FLOAT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+""")
 
-    cur.execute("""
-        INSERT INTO predictions (
+# Create table if it does not exist
+cur.execute("""
+    CREATE TABLE IF NOT EXISTS predictions (
+        id SERIAL PRIMARY KEY,
+        rainfall FLOAT,
+        soil_moisture FLOAT,
+        slope FLOAT,
+        elevation FLOAT,
+        temperature FLOAT,
+        distance_river FLOAT,
+        vegetation FLOAT,
+        risk VARCHAR(20),
+        probability FLOAT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+""")
+
+cur.execute("""
+    INSERT INTO predictions (
             rainfall,
             soil_moisture,
             slope,
@@ -104,11 +138,12 @@ def predict():
         round(probability, 2)
     ))
 
-    conn.commit()
-    cur.close()
-    conn.close()
+conn.commit()
+cur.close()
+conn.close()
 
-    return jsonify({
+
+return jsonify({
         "risk": prediction,
         "probability": round(probability, 2)
     })
