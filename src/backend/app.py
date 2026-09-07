@@ -7,7 +7,9 @@ app = Flask(__name__)
 CORS(app)
 
 # Load your trained model
-model = joblib.load("src/backend/landslide_model.pkl")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, "landslide_model.pkl")
+model = joblib.load(MODEL_PATH)
 
 
 @app.route("/")
