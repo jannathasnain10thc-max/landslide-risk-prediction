@@ -5,7 +5,7 @@ import pandas as pd
 import os
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins="*")
 
 # Load your trained model
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
