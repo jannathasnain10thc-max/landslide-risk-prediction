@@ -1,16 +1,97 @@
-# React + Vite
+# 🏔️ Landslide Risk Prediction System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A machine learning based web application for estimating landslide risk using environmental parameters.
 
-Currently, two official plugins are available:
+## 📌 Project Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+This project uses a Random Forest Classifier to predict landslide risk based on environmental conditions.
 
-## React Compiler
+The system classifies the predicted risk into:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🟢 Low Risk
+- 🟡 Medium Risk
+- 🔴 High Risk
 
-## Expanding the ESLint configuration
+## 🌱 Input Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The model uses seven environmental parameters:
+
+1. Rainfall
+2. Soil Moisture
+3. Slope
+4. Elevation
+5. Temperature
+6. Distance from River
+7. Vegetation Index
+
+## 🤖 Machine Learning Model
+
+A Random Forest Classifier is used for landslide risk classification.
+
+The prototype model was trained using a synthetically generated dataset.
+
+### Model Evaluation
+
+The model was evaluated using:
+
+- Accuracy
+- Classification Report
+- Confusion Matrix
+- Feature Importance
+
+The prototype achieved approximately **88.5% accuracy** on the test dataset.
+
+## 🖥️ Web Application
+
+The project includes a React + Vite frontend connected to a Flask backend.
+
+The application provides:
+
+- Environmental parameter input
+- Landslide risk prediction
+- Model confidence
+- Confidence visualization
+- Interactive risk map
+- Dynamic early warning system
+- Risk-based recommendations
+- Responsive interface
+
+## 🛠️ Technologies Used
+
+### Frontend
+- React
+- Vite
+- JavaScript
+- CSS
+- React Leaflet
+
+### Backend
+- Python
+- Flask
+- Flask-CORS
+
+### Machine Learning
+- Scikit-learn
+- Pandas
+- NumPy
+- Joblib
+
+## ⚠️ Important Limitation
+
+This project is a prototype developed using a synthetically generated dataset for educational and demonstration purposes.
+
+It is **not a scientifically validated real-world landslide prediction system**.
+
+## 🚀 Future Scope
+
+- Integrate real-world landslide datasets
+- Use satellite imagery
+- Add GIS-based visualization
+- Integrate real-time rainfall data
+- Improve model validation
+- Deploy the system as a cloud-based application
+- Integrate real-time environmental monitoring
+
+## 👥 Project Purpose
+
+Developed as a prototype for demonstrating how machine learning and environmental data can support landslide risk assessment and early-warning systems.
