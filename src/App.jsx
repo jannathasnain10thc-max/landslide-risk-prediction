@@ -38,7 +38,7 @@ function App() {
   }
 
   try {
-     fetch("https://landslide-risk-prediction-1-fn6b.onrender.com/predict", {
+  const response = await fetch("https://landslide-risk-prediction-1-fn6b.onrender.com/predict", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
