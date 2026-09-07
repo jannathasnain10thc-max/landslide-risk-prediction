@@ -8,6 +8,7 @@ import psycopg2
 app = Flask(__name__)
 CORS(app, origins="*")
 
+
 # Load trained model
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "landslide_model.pkl")
@@ -75,46 +76,31 @@ def predict():
 
     probability = max(probabilities) * 100
 
+
     # Save prediction to PostgreSQL
-   
-conn = get_db_connection()
-cur = conn.cursor()
-# Create table if it does not exist
-cur.execute("""
-    CREATE TABLE IF NOT EXISTS predictions (
-        id SERIAL PRIMARY KEY,
-        rainfall FLOAT,
-        soil_moisture FLOAT,
-        slope FLOAT,
-        elevation FLOAT,
-        temperature FLOAT,
-        distance_river FLOAT,
-        vegetation FLOAT,
-        risk VARCHAR(20),
-        probability FLOAT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )
-""")
+    conn = get_db_connection()
+    cur = conn.cursor()
 
-# Create table if it does not exist
-cur.execute("""
-    CREATE TABLE IF NOT EXISTS predictions (
-        id SERIAL PRIMARY KEY,
-        rainfall FLOAT,
-        soil_moisture FLOAT,
-        slope FLOAT,
-        elevation FLOAT,
-        temperature FLOAT,
-        distance_river FLOAT,
-        vegetation FLOAT,
-        risk VARCHAR(20),
-        probability FLOAT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )
-""")
+    # Create table if it does not exist
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS predictions (
+            id SERIAL PRIMARY KEY,
+            rainfall FLOAT,
+            soil_moisture FLOAT,
+            slope FLOAT,
+            elevation FLOAT,
+            temperature FLOAT,
+            distance_river FLOAT,
+            vegetation FLOAT,
+            risk VARCHAR(20),
+            probability FLOAT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
 
-cur.execute("""
-    INSERT INTO predictions (
+    # Insert prediction
+    cur.execute("""
+        INSERT INTO predictions (
             rainfall,
             soil_moisture,
             slope,
@@ -138,18 +124,17 @@ cur.execute("""
         round(probability, 2)
     ))
 
-conn.commit()
-cur.close()
-conn.close()
+    conn.commit()
+    cur.close()
+    conn.close()
 
 
-return jsonify({
+    return jsonify({
         "risk": prediction,
         "probability": round(probability, 2)
     })
 
 
-# Create table when application starts
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
