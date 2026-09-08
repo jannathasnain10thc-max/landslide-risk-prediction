@@ -1,3 +1,4 @@
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import joblib
@@ -109,7 +110,7 @@ def predict():
             distance_river,
             vegetation,
             risk,
-            probabilitygit commit -m "Fix PostgreSQL probability type"
+            probability
         )
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
     """, (
@@ -121,7 +122,7 @@ def predict():
         data["distance_river"],
         data["vegetation"],
         str(prediction),
-        round(probability, 2)
+        float(round(probability, 2))
     ))
 
     conn.commit()
@@ -130,11 +131,9 @@ def predict():
 
 
     return jsonify({
-        
-    "risk": str(prediction),
-    "probability": float(round(probability, 2))
-})
-    
+        "risk": str(prediction),
+        "probability": float(round(probability, 2))
+    })
 
 
 if __name__ == "__main__":
