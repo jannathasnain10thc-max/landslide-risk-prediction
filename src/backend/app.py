@@ -131,7 +131,7 @@ def predict():
 
     return jsonify({
         "risk": prediction,
-        "probability": round(probability, 2)
+        "probability": float(round(probability, 2))
     })
 
 
