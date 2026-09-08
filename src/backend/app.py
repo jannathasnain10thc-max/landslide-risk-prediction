@@ -130,9 +130,11 @@ def predict():
 
 
     return jsonify({
-               str(prediction),
-        float(round(probability, 2))
-    })
+        
+    "risk": str(prediction),
+    "probability": float(round(probability, 2))
+})
+    
 
 
 if __name__ == "__main__":
