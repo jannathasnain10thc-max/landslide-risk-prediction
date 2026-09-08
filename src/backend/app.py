@@ -109,7 +109,7 @@ def predict():
             distance_river,
             vegetation,
             risk,
-            probability
+            probabilitygit commit -m "Fix PostgreSQL probability type"
         )
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
     """, (
@@ -130,8 +130,8 @@ def predict():
 
 
     return jsonify({
-        "risk": prediction,
-        "probability": float(round(probability, 2))
+               str(prediction),
+        float(round(probability, 2))
     })
 
 
